@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerview)
         recyclerView.layoutManager=LinearLayoutManager(this)
         GlobalScope.launch(Dispatchers.IO) {
-            var count=getcount()
+            count=getcount()
             val userList = userlist()
             runOnUiThread{
                 adapter = MainAdapter(userList)
@@ -61,17 +61,13 @@ class MainActivity : AppCompatActivity() {
                 val user = userSnapshot.getValue(User::class.java)
                 user?.let { userList.add(it) }
             }
-            Log.d(TAG, userList.size.toString())
         } catch (e: Exception) {
-            Log.d(TAG, e.toString())
             // Handle any errors that occurred while retrieving the data
         }
-        for(user in userList){
-            if(user.id==auth.uid){
-                userList.remove(user)
-            }
+        val filteredList = userList.filter { user ->
+            user.id != auth.uid
         }
-        return userList
+        return filteredList
     }
     suspend fun getcount(): Int {
         try {
