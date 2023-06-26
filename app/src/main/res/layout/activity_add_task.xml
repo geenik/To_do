@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".AddTask">
+    <ImageButton
+        android:id="@+id/backbtn"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/back_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:background="@drawable/round_corner"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/backbtn"
+        app:layout_constraintRight_toLeftOf="@+id/avtar"
+        android:text="Add Tasks to your List"
+        android:textSize="22dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        style="@style/MaterialAlertDialog.Material3.Title.Icon.CenterStacked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/taskscount"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintLeft_toRightOf="@+id/backbtn"
+        app:layout_constraintRight_toLeftOf="@+id/avtar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_bias="0.19"
+        android:text="You have total 3 Tasks"
+        />
+    <ImageView
+        android:id="@+id/avtar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/male_icon"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/headingtextfield"
+        app:boxBackgroundMode="none"
+        android:layout_marginTop="50dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:hintEnabled="false"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/taskheading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Task heading"
+            android:padding="10dp"
+            style="@style/ThemeOverlay.Material3.TextInputEditText"
+            android:background="@drawable/round_corner"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/descriptiontextfield"
+        app:boxBackgroundMode="none"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+        app:layout_constraintTop_toBottomOf="@+id/headingtextfield"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:hintEnabled="false"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/taskdescription"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:hint="Task description"
+            android:padding="10dp"
+            style="@style/ThemeOverlay.Material3.TextInputEditText"
+            android:background="@drawable/round_corner"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+<androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/savebtn"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    android:background="@drawable/rounded"
+    android:layout_margin="10dp"
+    android:text="Save"
+    android:textColor="@color/white"
+    android:textSize="20sp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

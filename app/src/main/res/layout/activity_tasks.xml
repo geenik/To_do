@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="15dp"
+    android:layout_height="match_parent"
+    tools:context=".tasks">
+    <ImageButton
+        android:id="@+id/backbtn"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/back_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:background="@drawable/round_corner"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/backbtn"
+        android:layout_marginStart="20dp"
+        android:text="Add Tasks to your List"
+        android:textSize="22dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        style="@style/MaterialAlertDialog.Material3.Title.Icon.CenterStacked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/taskscount"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintLeft_toRightOf="@+id/backbtn"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_bias="0.19"
+        android:text="You have total 3 Tasks"
+        />
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="20dp"
+        app:tabIndicatorColor="@android:color/black"
+        app:tabSelectedTextColor="@color/black"
+        />
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+         />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
