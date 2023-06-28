@@ -36,8 +36,9 @@
         app:layout_constraintLeft_toRightOf="@+id/backbtn"
         app:layout_constraintRight_toLeftOf="@+id/avtar"
         android:layout_width="wrap_content"
+        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
         android:layout_height="wrap_content"
-        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintHorizontal_bias="0.22"
         android:text="You have total 3 Tasks"
         />
     <ImageView
@@ -68,7 +69,8 @@
             android:layout_height="wrap_content"
             android:hint="Task heading"
             android:padding="10dp"
-            style="@style/ThemeOverlay.Material3.TextInputEditText"
+            android:textColorHint="#535252"
+            android:textColor="@color/black"
             android:background="@drawable/round_corner"
             />
 
@@ -96,7 +98,8 @@
             android:inputType="textMultiLine"
             android:hint="Task description"
             android:padding="10dp"
-            style="@style/ThemeOverlay.Material3.TextInputEditText"
+            android:textColorHint="#535252"
+            android:textColor="@color/black"
             android:background="@drawable/round_corner"
             />
 

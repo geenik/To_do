@@ -45,17 +45,11 @@ class PendingTaskAdapter(private var taskList: List<Task>,private val listener: 
             deleteImageView = itemView.findViewById(R.id.deletebtn)
             tickImageView = itemView.findViewById(R.id.tick)
         }
-        fun updateTaskList(newTaskList: List<Task>) {
-            taskList = newTaskList
-            notifyDataSetChanged()
-        }
+
     }
     interface OnTaskClickListener {
         fun onDeleteClick(position: Int)
         fun onTickClick(position: Int)
     }
-    fun updateTaskList(newTaskList: List<Task>) {
-        taskList = newTaskList
-        notifyDataSetChanged()
-    }
+
 }

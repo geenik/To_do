@@ -4,6 +4,7 @@ import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.todo.databinding.ActivityTasksBinding
 import com.example.todo.model.Task
 import com.google.android.material.tabs.TabLayout
@@ -12,6 +13,7 @@ import com.google.android.material.tabs.TabLayout
 class tasks : AppCompatActivity() {
     lateinit var bind:ActivityTasksBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO;
         bind=ActivityTasksBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(bind.root)

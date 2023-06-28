@@ -27,8 +27,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
             android:text="You have 3 tasks pending"/>
         <ImageView
+            android:id="@+id/profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -51,6 +53,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_margin="20dp"
+        style="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"
         android:src="@drawable/baseline_add_24"
         android:layout_height="wrap_content"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

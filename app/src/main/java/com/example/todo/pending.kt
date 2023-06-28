@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +27,7 @@ class pending() : Fragment(),PendingTaskAdapter.OnTaskClickListener{
     var tasks=mutableListOf<Task>()
     lateinit var taskscount:TextView
     lateinit var recyclerView: RecyclerView
+    lateinit var progressbar:ProgressBar
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,6 +36,7 @@ class pending() : Fragment(),PendingTaskAdapter.OnTaskClickListener{
         val rootview=inflater.inflate(R.layout.fragment_pending, container, false)
         recyclerView=rootview.findViewById(R.id.pendingrecyclerview)
         taskscount=activity.findViewById(R.id.taskscount)
+        progressbar=rootview.findViewById(R.id.progressbar)
         GlobalScope.launch {
             tasks= userlist() as MutableList<Task>
             withContext(Dispatchers.Main){
@@ -47,20 +50,24 @@ class pending() : Fragment(),PendingTaskAdapter.OnTaskClickListener{
         val adapter = PendingTaskAdapter(tasks, this@pending)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
+        taskscount.text="You have ${MainActivity.count} tasks pending"
     }
 
     suspend fun userlist(): List<Task> {
         val userList = mutableListOf<Task>()
+        var count=0
         try {
             val dataSnapshot = database.child("tasks").get().await()
-
             for (userSnapshot in dataSnapshot.children) {
                 val task = userSnapshot.getValue(Task::class.java)
                 if (task != null && task.pending) {
-                    if(task.userid==auth.uid)
+                    if(task.userid==auth.uid) {
+                        count++
                         task.let { userList.add(it) }
+                    }
                 }
             }
+            MainActivity.count=count
         } catch (e: Exception) {
             // Handle any errors that occurred while retrieving the data
         }
@@ -68,58 +75,63 @@ class pending() : Fragment(),PendingTaskAdapter.OnTaskClickListener{
     }
 
     override fun onDeleteClick(position: Int) {
+        progressbar.visibility=View.VISIBLE
         try {
-
            GlobalScope.launch {
                 val dataSnapshot = database.child("tasks").get().await()
-
                 var i = 0
                 for (userSnapshot in dataSnapshot.children) {
-                    if (i == position) {
+                    val task = userSnapshot.getValue(Task::class.java)
+                    if (i == position && task!!.pending &&task.userid==auth.uid) {
                         userSnapshot.ref.removeValue().await()
                         break
                     }
-                    i++
+
+                    if (task != null && task.pending) {
+                        if(task.userid==auth.uid)
+                            i++
+                    }
                 }
                tasks= userlist() as MutableList<Task>
                withContext(Dispatchers.Main){
                    updaterecyclerview()
+                   progressbar.visibility=View.GONE
                }
-               MainActivity.count--
             }
         } catch (e: Exception) {
-            MainActivity.count++
             // Handle any errors that occurred while deleting the task
         }
-        taskscount.text="You have ${MainActivity.count} tasks pending"
     }
 
     override fun onTickClick(position: Int) {
+        progressbar.visibility=View.VISIBLE
         try {
             GlobalScope.launch {
                 val dataSnapshot = database.child("tasks").get().await()
 
                 var i = 0
                 for (userSnapshot in dataSnapshot.children) {
-                    if (i == position) {
-                        val task = userSnapshot.getValue(Task::class.java)
+                    val task = userSnapshot.getValue(Task::class.java)
+                    if (i == position && task!!.pending && task.userid==auth.uid) {
                         task!!.pending=false
-                        userSnapshot.ref.setValue(task)
+                        userSnapshot.ref.setValue(task).await()
                         break
                     }
-                    i++
+
+                    if (task != null && task.pending) {
+                        if(task.userid==auth.uid)
+                            i++
+                    }
                 }
                 tasks= userlist() as MutableList<Task>
                 withContext(Dispatchers.Main){
                     updaterecyclerview()
+                    progressbar.visibility=View.GONE
                 }
             }
-            MainActivity.count--
         } catch (e: Exception) {
-            MainActivity.count++
             // Handle any errors that occurred while deleting the task
         }
-        taskscount.text="You have ${MainActivity.count} tasks pending"
     }
 
 
