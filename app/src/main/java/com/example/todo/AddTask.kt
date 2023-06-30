@@ -39,7 +39,9 @@ class AddTask : AppCompatActivity() {
                     binding.savebtn.visibility=View.GONE
                     binding.progressbar.visibility=View.VISIBLE
                 }
+                NetworkIdlingResource.increment()
                 addtask(title,description)
+                NetworkIdlingResource.decrement()
                 withContext(Dispatchers.Main){
                     binding.progressbar.visibility=View.GONE
                     binding.taskheading.text?.clear()

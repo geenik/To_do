@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.model.Task
@@ -42,14 +44,24 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val orientation = resources.configuration.orientation
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setContentView(R.layout.activity_main_landscape)
+        } else {
+            setContentView(R.layout.activity_main)
+        }
         fab=findViewById(R.id.fab)
         taskcount=findViewById(R.id.tasks)
         profile=findViewById(R.id.profile)
         pref=getSharedPreferences("MODE", Context.MODE_PRIVATE)
         nightMode=pref.getBoolean("night",false)
         val recyclerView: RecyclerView = findViewById(R.id.recyclerview)
-        recyclerView.layoutManager=LinearLayoutManager(this)
+        val layoutManager = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            GridLayoutManager(this, 2)
+        } else {
+            LinearLayoutManager(this)
+        }
+        recyclerView.layoutManager=layoutManager
         if(nightMode){
             AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
         }
@@ -70,7 +82,9 @@ class MainActivity : AppCompatActivity() {
                 AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
                 nightMode=true
             }else{
-                AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
+                AppCompatDelegate.setDefaultNightMode(
+                    MODE_NIGHT_NO
+                )
                 nightMode=false
             }
         }
